@@ -2,7 +2,7 @@
 
 # Claude MCP
 
-**Dein Minecraft-Client als MCP-Server – gesteuert von Claude Code, opencode oder jedem anderen MCP-Client.**
+**Turn your Minecraft client into an MCP server – controlled by Claude Code, opencode or any other MCP client.**
 
 [![Minecraft 26.3](https://img.shields.io/badge/Minecraft-26.3-62B47A?style=for-the-badge&logo=minecraft&logoColor=white)](https://www.minecraft.net/)
 [![Fabric](https://img.shields.io/badge/Fabric-0.20.1-DBD0B4?style=for-the-badge)](https://fabricmc.net/)
@@ -11,64 +11,64 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/Hemiize/mc-claude-mcp?style=for-the-badge&label=Download)](https://github.com/Hemiize/mc-claude-mcp/releases/latest)
 
-<img src="docs/screenshot-goto.png" alt="Claude läuft per goto durch die Welt, das HUD zeigt den laufenden Task" width="860">
+<img src="docs/screenshot-goto.png" alt="Claude walking through the world with goto, the HUD shows the running task" width="860">
 
-*Claude läuft per Pathfinder durch die Welt – oben links zeigt das HUD, was gerade passiert.*
+*Claude walks through the world using its pathfinder – the HUD in the top left shows what is happening.*
 
 </div>
 
 ---
 
-## Was ist das?
+## What is this?
 
-Eine clientseitige **Fabric-Mod**, die in Minecraft einen **MCP-Server** startet. Ein KI-Agent kann damit den laufenden Client komplett übernehmen. Er sieht die Welt und läuft, baut ab, baut, craftet und kämpft. Er merkt sich Orte pro Welt. Und er greift live in den Code des Spiels ein: Java-Methoden aufrufen, Groovy-Code ausführen, **beliebige Methoden zur Laufzeit hooken**, den Chat filtern und NBT bearbeiten.
+A client-side **Fabric mod** that starts an **MCP server** inside Minecraft. An AI agent can then take full control of the running client. It sees the world, walks, mines, builds, crafts and fights. It remembers places per world. And it can reach into the game's code live: call Java methods, run Groovy code, **hook any method at runtime**, filter the chat and edit NBT.
 
-> „Hau den nächsten Baum um, bau eine Werkbank und merk dir, wo sie steht.“
-> „Hook `LivingEntity.getHealth` und zeig mir, wer wie oft abgefragt wird.“
-> „Ersetze jedes ‚lol‘ im Chat durch ‚😂‘.“
+> "Chop down the nearest tree, build a crafting table and remember where it is."
+> "Hook `LivingEntity.getHealth` and show me who calls it how often."
+> "Replace every 'lol' in the chat with '😂'."
 
 <div align="center">
-<img src="docs/screenshot-hooks.png" alt="Live-Groovy-HUD, Methoden-Hook und Chat-Filter gleichzeitig aktiv" width="860">
+<img src="docs/screenshot-hooks.png" alt="Live Groovy HUD, method hook and chat filter active at the same time" width="860">
 
-*Gleichzeitig aktiv: ein Live-Groovy-HUD (oben rechts), ein Methoden-Hook, der Chatzeilen umschreibt (`[java_hook]`), und ein Chat-Filter.*
+*Active at the same time: a live Groovy HUD (top right), a method hook that rewrites chat lines (`[java_hook]`) and a chat filter.*
 </div>
 
 ## Features
 
 | | |
 |---|---|
-| 🧭 **Wahrnehmung** | Zustand als JSON (Position, Leben, Hunger, Blickziel, Biom …), Blöcke und Entities in der Umgebung, Inventar, GUI-Inhalte, Screenshots |
-| 🚶 **Bewegung** | Eigener A*-Pathfinder: Laufen, Springen, Fallen, Schwimmen, Klettern, Graben durch Hindernisse. Schutz gegen Ertrinken und zu wenig Leben |
-| ⛏️ **Aktionen** | Abbauen mit automatischer Werkzeugwahl und Aufsammeln, Platzieren, Interagieren, Craften über das Rezeptbuch, Kämpfen, Folgen, GUI-Klicks, Tippen |
-| ⏱️ **Tasks** | Lange Aktionen laufen als Task mit ID, Fortschritt, Abbruch und Not-Stopp (`End`-Taste) |
-| 🧠 **Memory** | Notizen, Key/Value-Einträge und Wegpunkte, getrennt pro Welt bzw. Server, als JSON gespeichert |
-| ☕ **Reflection** | Jede Klasse und jedes Objekt des Spiels: Felder lesen und schreiben, Methoden aufrufen, Objekte erzeugen (Mojang-Namen) |
-| 📜 **Groovy** | Live-Code im Spiel, synchron im Client-Thread oder als abbrechbarer Task, gespeicherte Scripts, Event-Hooks (Tick, Chat, Schaden, HUD, Tasten …) |
-| 🪝 **Methoden-Hooks** | Jede Methode zur Laufzeit hooken (Java-Agent + Byte Buddy): Aufrufe mitschneiden, Argumente ändern, Rückgabewerte ersetzen, Aufrufe abbrechen |
-| 💬 **Chat** | Lesen per Event-Stream, Senden, Filtern und Umschreiben von ein- und ausgehenden Nachrichten (Regeln oder Groovy) |
-| 🏷️ **NBT-Editor** | Kisten, Schilder, Spawner, Entities, Spieler und Items mit Komponenten lesen und bearbeiten, Pfade wie bei `/data` |
+| 🧭 **Perception** | State as JSON (position, health, hunger, crosshair target, biome …), nearby blocks and entities, inventory, GUI contents, screenshots |
+| 🚶 **Movement** | Custom A* pathfinder: walking, jumping, falling, swimming, climbing, digging through obstacles. Protection against drowning and low health |
+| ⛏️ **Actions** | Mining with automatic tool choice and item pickup, placing, interacting, crafting via the recipe book, fighting, following, GUI clicks, typing |
+| ⏱️ **Tasks** | Long actions run as tasks with ID, progress, cancellation and an emergency stop (`End` key) |
+| 🧠 **Memory** | Notes, key/value entries and waypoints, separate per world or server, stored as JSON |
+| ☕ **Reflection** | Every class and object of the game: read and write fields, call methods, create objects (Mojang names) |
+| 📜 **Groovy** | Live code inside the game, synchronously on the client thread or as a cancellable task, saved scripts, event hooks (tick, chat, damage, HUD, keys …) |
+| 🪝 **Method hooks** | Hook any method at runtime (Java agent + Byte Buddy): trace calls, change arguments, replace return values, cancel calls |
+| 💬 **Chat** | Read via event stream, send, filter and rewrite incoming and outgoing messages (rules or Groovy) |
+| 🏷️ **NBT editor** | Read and edit chests, signs, spawners, entities, the player and items with components, paths like in `/data` |
 
-## Schnellstart
+## Quick start
 
-### 1. Mod installieren
+### 1. Install the mod
 
-Lege in einer **Fabric-Instanz für Minecraft 26.3** (z. B. mit [Prism Launcher](https://prismlauncher.org/)) diese Dateien in `mods/`:
+Put these files into `mods/` of a **Fabric instance for Minecraft 26.3** (e.g. with [Prism Launcher](https://prismlauncher.org/)):
 
-- `claude-mcp-<version>.jar` – [**aktuelles Release herunterladen**](https://github.com/Hemiize/mc-claude-mcp/releases/latest) oder selbst bauen mit `.\gradlew build` (die Jar liegt dann unter `build/libs/`)
+- `claude-mcp-<version>.jar` – [**download the latest release**](https://github.com/Hemiize/mc-claude-mcp/releases/latest) or build it yourself with `.\gradlew build` (the jar ends up in `build/libs/`)
 - [Fabric API](https://modrinth.com/mod/fabric-api) **≥ 0.165.0**
 
-Starte Minecraft einmal. Dabei werden `config/claudemcp/token.txt` und `config.json` angelegt.
+Start Minecraft once. This creates `config/claudemcp/token.txt` and `config.json`.
 
-### 2a. Mit Claude Code verbinden
+### 2a. Connect Claude Code
 
 ```powershell
-.\register.ps1                                         # sucht die Prism-Instanz "Fabric 26.3"
-.\register.ps1 -ConfigDir "<instanz>\minecraft\config\claudemcp"
+.\register.ps1                                         # looks for the Prism instance "Fabric 26.3"
+.\register.ps1 -ConfigDir "<instance>\minecraft\config\claudemcp"
 ```
 
-Das Skript trägt den Server als `minecraft` im User-Scope ein. Optional kopierst du den Skill [`skill/minecraft-control`](skill/minecraft-control/SKILL.md) nach `~/.claude/skills/`. Er bringt Claude bei, wie die Tools sinnvoll zusammenspielen.
+The script registers the server as `minecraft` in the user scope. Optionally copy the skill [`skill/minecraft-control`](skill/minecraft-control/SKILL.md) to `~/.claude/skills/`. It teaches Claude how the tools work together.
 
-### 2b. Mit opencode verbinden
+### 2b. Connect opencode
 
 In `~/.config/opencode/opencode.json`:
 
@@ -77,53 +77,53 @@ In `~/.config/opencode/opencode.json`:
   "minecraft": {
     "type": "remote",
     "url": "http://127.0.0.1:25599/mcp",
-    "headers": { "Authorization": "Bearer {file:<instanz>/minecraft/config/claudemcp/token.txt}" },
+    "headers": { "Authorization": "Bearer {file:<instance>/minecraft/config/claudemcp/token.txt}" },
     "enabled": true
   }
 }
 ```
 
-> 💡 **Tipp für lokale Modelle:** 73 Tool-Beschreibungen kosten viel Kontext. Schalte nicht benötigte Tools über `"tools": { "minecraft_goto": false, … }` ab.
+> 💡 **Tip for local models:** 73 tool descriptions take up a lot of context. Disable the tools you don't need with `"tools": { "minecraft_goto": false, … }`.
 
-### 3. Loslegen
+### 3. Play
 
-Minecraft starten, eine Welt betreten und dem Agenten sagen, was er tun soll. Der Server existiert nur, solange das Spiel läuft.
+Start Minecraft, join a world and tell the agent what to do. The server only exists while the game is running.
 
-## Im Spiel
+## In game
 
 | | |
 |---|---|
-| **HUD** (oben links) | zeigt laufende Tasks und eingehende MCP-Anfragen |
-| **`End`** | stoppt sofort alle Tasks und Scripts (unter *Steuerung* umbelegbar) |
-| **Eigene Eingabe** | WASD, Springen und Klicks brechen Bewegungs-Tasks ab, du hast immer Vorrang |
+| **HUD** (top left) | shows running tasks and incoming MCP requests |
+| **`End`** | immediately stops all tasks and scripts (rebindable under *Controls*) |
+| **Your own input** | WASD, jumping and clicks cancel movement tasks – you always take precedence |
 
-## Methoden-Hooks zur Laufzeit
+## Runtime method hooks
 
-`java_hook` patcht jede Methode des Spiels oder einer Mod, **ohne Neustart**. Ein Java-Agent hängt sich per Self-Attach an den laufenden Prozess, und Byte Buddy schreibt die Klasse per Retransformation um.
+`java_hook` patches any method of the game or of a mod, **without a restart**. A Java agent self-attaches to the running process and Byte Buddy rewrites the class via retransformation.
 
 ```jsonc
-// Nur mitschneiden, wer getHealth() aufruft – Ergebnisse mit java_hook_calls
+// Only trace who calls getHealth() – read the results with java_hook_calls
 { "class": "LivingEntity", "method": "getHealth", "max_calls": 100 }
 
-// Rückgabewert ersetzen
+// Replace the return value
 { "class": "LivingEntity", "method": "getHealth",
   "after": "if (self instanceof net.minecraft.client.player.LocalPlayer) hook.setResult(7.5)" }
 
-// Argumente umschreiben
+// Rewrite arguments
 { "class": "ChatComponent", "method": "addClientSystemMessage",
   "before": "args[0] = net.minecraft.network.chat.Component.literal('[hook] ' + args[0].string)" }
 ```
 
-- **`before`**: Variablen `self`, `args`, `method`, `hook`. Mit `hook.cancel(wert)` wird das Original übersprungen.
-- **`after`**: zusätzlich `result` und `thrown`. Mit `hook.setResult(wert)` wird der Rückgabewert ersetzt.
-- Entfernt man den letzten Hook einer Methode, ist der Original-Bytecode wieder da.
-- Hooks laufen auf dem aufrufenden Thread mit 50 ms Limit und schalten sich nach 5 Fehlern selbst ab.
-- JDK-Klassen und die Mod selbst sind tabu. Falls sich der Agent nicht anhängen kann, hilft das JVM-Argument `-Djdk.attach.allowAttachSelf=true`.
+- **`before`**: variables `self`, `args`, `method`, `hook`. `hook.cancel(value)` skips the original method.
+- **`after`**: additionally `result` and `thrown`. `hook.setResult(value)` replaces the return value.
+- Removing the last hook of a method restores the original bytecode.
+- Hooks run on the calling thread with a 50 ms limit and disable themselves after 5 errors.
+- JDK classes and the mod itself can't be hooked. If the agent cannot attach, the JVM argument `-Djdk.attach.allowAttachSelf=true` helps.
 
-## Groovy live im Spiel
+## Live Groovy in the game
 
 ```groovy
-// nächste 5 Stämme fällen
+// chop the nearest 5 logs
 5.times {
   def log = api.findBlocks("oak_log", 24, 1)
   if (!log) return
@@ -133,96 +133,96 @@ Minecraft starten, eine Welt betreten und dem Agenten sagen, was er tun soll. De
 api.inventory().items.findAll { it.id.endsWith("_log") }
 ```
 
-Verfügbar sind `mc`, `player`, `level`, `gameMode`, `screen`, `api`, `memory`, `args` und `out`. Game-Objekte fasst man in Worker-Scripts innerhalb von `api.onMain { … }` an. Mit `sync: true` läuft kurzer Code direkt im Client-Thread.
+Available variables: `mc`, `player`, `level`, `gameMode`, `screen`, `api`, `memory`, `args` and `out`. In worker scripts, touch game objects inside `api.onMain { … }`. With `sync: true` short code runs directly on the client thread.
 
-## NBT-Editor
+## NBT editor
 
 ```jsonc
-// Kiste umbenennen und füllen
+// rename and fill a chest
 nbt_set  { "target": "block", "x": -12, "y": 70, "z": 17,
-           "snbt": "{CustomName:\"Claudes Kiste\",Items:[{Slot:0b,id:\"minecraft:diamond\",count:42}]}" }
+           "snbt": "{CustomName:\"Claude's chest\",Items:[{Slot:0b,id:\"minecraft:diamond\",count:42}]}" }
 
-// Item mit Komponenten erzeugen
+// create an item with components
 nbt_give { "snbt": "{id:\"minecraft:diamond_sword\",count:1,components:{\"minecraft:custom_name\":\"Excalibur\"}}" }
 ```
 
 | | Singleplayer | Server |
 |---|---|---|
-| Blöcke und Entities | direkt auf dem integrierten Server | über `/data`-Befehle (OP nötig) |
-| Items | direkt | nur im Kreativmodus (Creative-Paket) |
-| Spieler | direkt | nicht möglich |
+| Blocks and entities | directly on the integrated server | via `/data` commands (OP required) |
+| Items | directly | creative mode only (creative inventory packet) |
+| Player | directly | not possible |
 
-## Architektur
+## Architecture
 
 ```mermaid
 flowchart LR
-    A[Claude Code / opencode] -- "Streamable HTTP + Bearer-Token" --> B["Jetty + MCP Java SDK<br/>127.0.0.1:25599"]
-    subgraph Minecraft-Client
-        B --> C[73 Tools]
-        C --> D[Task-Manager<br/>Tick-Tasks & Worker]
-        C --> E[Reflection<br/>Handles]
-        C --> F[Groovy<br/>Scripts & Hooks]
-        C --> G[Java-Agent<br/>Byte Buddy]
-        D --> H[(Client-Thread)]
+    A[Claude Code / opencode] -- "Streamable HTTP + bearer token" --> B["Jetty + MCP Java SDK<br/>127.0.0.1:25599"]
+    subgraph Minecraft client
+        B --> C[73 tools]
+        C --> D[Task manager<br/>tick tasks & workers]
+        C --> E[Reflection<br/>handles]
+        C --> F[Groovy<br/>scripts & hooks]
+        C --> G[Java agent<br/>Byte Buddy]
+        D --> H[(Client thread)]
         E --> H
         F --> H
         G -.retransform.-> H
     end
 ```
 
-## Sicherheit
+## Security
 
-- Der Server lauscht **nur auf `127.0.0.1`** und verlangt ein zufälliges **Bearer-Token**.
-- Scripts und Reflection bedeuten volle Codeausführung im Spielprozess. Beides lässt sich in `config/claudemcp/config.json` abschalten (`enableScripts`, `enableReflection`).
-- Die Mod ist rein clientseitig und funktioniert in Singleplayer und auf Servern. **Anticheat-Umgehung ist bewusst nicht eingebaut.** Halte dich an die Regeln der Server, auf denen du spielst.
+- The server listens **only on `127.0.0.1`** and requires a random **bearer token**.
+- Scripts and reflection mean full code execution in the game process. Both can be disabled in `config/claudemcp/config.json` (`enableScripts`, `enableReflection`).
+- The mod is purely client-side and works in singleplayer and on servers. **Anti-cheat bypasses are deliberately not included.** Follow the rules of the servers you play on.
 
 <details>
-<summary><b>📋 Alle 73 Tools</b></summary>
+<summary><b>📋 All 73 tools</b></summary>
 
-| Gruppe | Tools |
+| Group | Tools |
 |---|---|
-| Zustand | `get_state`, `get_blocks`, `find_blocks`, `get_entities`, `get_inventory`, `get_screen`, `screenshot` |
-| Aktionen | `goto`, `follow`, `look_at`, `set_rotation`, `move`, `mine_block`, `place_block`, `interact_block`, `interact_entity`, `use_item`, `attack`, `select_slot`, `click_slot`, `click_widget`, `click_at`, `type_text`, `press_key`, `open_inventory`, `close_screen`, `craft`, `list_recipes`, `chat`, `run_command`, `client_message` |
+| State | `get_state`, `get_blocks`, `find_blocks`, `get_entities`, `get_inventory`, `get_screen`, `screenshot` |
+| Actions | `goto`, `follow`, `look_at`, `set_rotation`, `move`, `mine_block`, `place_block`, `interact_block`, `interact_entity`, `use_item`, `attack`, `select_slot`, `click_slot`, `click_widget`, `click_at`, `type_text`, `press_key`, `open_inventory`, `close_screen`, `craft`, `list_recipes`, `chat`, `run_command`, `client_message` |
 | Tasks | `task_status`, `task_wait`, `task_cancel`, `stop_all` |
-| Ereignisse | `get_events` (mit Long-Polling), `get_log` |
+| Events | `get_events` (with long polling), `get_log` |
 | Memory | `memory_put`, `memory_get`, `memory_search`, `memory_delete`, `waypoint_set`, `waypoint_list`, `waypoint_delete`, `waypoint_goto` |
 | Reflection | `java_find_class`, `java_describe`, `java_get_field`, `java_set_field`, `java_invoke`, `java_new`, `handle_release` |
-| Script | `script_eval`, `script_save`, `script_run`, `script_list`, `script_get`, `script_delete`, `hook_register`, `hook_list`, `hook_remove` |
-| Methoden-Hooks | `java_hook`, `java_hook_calls`, `java_hook_list`, `java_hook_remove`, `java_hook_enable` |
-| Chat-Filter | `chat_rule_add`, `chat_rule_list`, `chat_rule_remove` (+ Hook-Events `chat_in`/`chat_out`) |
+| Scripts | `script_eval`, `script_save`, `script_run`, `script_list`, `script_get`, `script_delete`, `hook_register`, `hook_list`, `hook_remove` |
+| Method hooks | `java_hook`, `java_hook_calls`, `java_hook_list`, `java_hook_remove`, `java_hook_enable` |
+| Chat filter | `chat_rule_add`, `chat_rule_list`, `chat_rule_remove` (+ hook events `chat_in`/`chat_out`) |
 | NBT | `nbt_get`, `nbt_set`, `nbt_remove`, `nbt_give` |
 
-Längere Aktionen laufen als Task. Mit `wait` (Sekunden) wartet der Aufruf direkt auf das Ergebnis, sonst kommt sofort eine Task-ID zurück.
+Long actions run as tasks. With `wait` (seconds) the call waits for the result directly, otherwise it returns a task ID right away.
 
 </details>
 
 <details>
-<summary><b>🛠️ Entwicklung</b></summary>
+<summary><b>🛠️ Development</b></summary>
 
 ```powershell
-.\gradlew build                 # Jar + Unit-Tests (Pathfinder, Overloads, Memory/Events, NBT)
-.\gradlew runClient             # Dev-Client (run/), MCP auf Port 25599
-.\gradlew runClientGameTest     # End-to-End: echter Client, Testwelt, alle Kernfunktionen über MCP-HTTP
+.\gradlew build                 # jar + unit tests (pathfinder, overloads, memory/events, NBT)
+.\gradlew runClient             # dev client (run/), MCP on port 25599
+.\gradlew runClientGameTest     # end-to-end: real client, test world, all core features over MCP HTTP
 ```
 
 **Stack:**
 - Build: Gradle 9.8.2, Fabric Loom 1.19.3, Fabric API 0.165.2+26.3
-- Bibliotheken: MCP Java SDK 2.1.0, Jetty 12.1 (ee11), Groovy 5.1.3, Byte Buddy 1.18.17, alle als Jar-in-Jar in der Mod
-- JDK: Gradle sucht sich ein installiertes JDK 25 selbst (`gradle/gradle-daemon-jvm.properties`). Das Standard-Java des Systems darf älter sein.
+- Libraries: MCP Java SDK 2.1.0, Jetty 12.1 (ee11), Groovy 5.1.3, Byte Buddy 1.18.17, all bundled as jar-in-jar
+- JDK: Gradle finds an installed JDK 25 by itself (`gradle/gradle-daemon-jvm.properties`). The system's default Java may be older.
 
-**Besonderheiten von 26.3:**
-- **Mojang-Namen:** Der Code ist nicht mehr obfuskiert. Viele Klassen heißen anders als in 1.21, zum Beispiel `GuiGraphicsExtractor`, `mc.gui.screen()` und `Hud.toggle()`.
-- **Tastencodes:** Es sind SDL-Scancodes statt GLFW-Codes. Den richtigen Code liefert `InputConstants.getKey("key.keyboard.w")`.
-- **Buttons:** Synthetische `mouseClicked`-Events lösen Buttons nicht überall aus. `click_widget` ruft deshalb `onPress` auf.
-- **Threads:** Das MCP SDK erzeugt Reactor-Threads, die keine Daemon-Threads sind. Eine eigene Scheduler-Factory hält den Shutdown sauber.
+**Things worth knowing about 26.3:**
+- **Mojang names:** The code is no longer obfuscated. Many classes are named differently than in 1.21, e.g. `GuiGraphicsExtractor`, `mc.gui.screen()` and `Hud.toggle()`.
+- **Key codes:** They are SDL scancodes, not GLFW codes. `InputConstants.getKey("key.keyboard.w")` returns the right code.
+- **Buttons:** Synthetic `mouseClicked` events don't trigger buttons on every screen. `click_widget` therefore calls `onPress`.
+- **Threads:** The MCP SDK creates non-daemon Reactor threads. A custom scheduler factory keeps the shutdown clean.
 
 </details>
 
-## Lizenz und Namensnennung
+## License and attribution
 
 Copyright 2026 **[Hemiize](https://github.com/Hemiize)** · [Apache License 2.0](LICENSE)
 
 > [!IMPORTANT]
-> **Namensnennung ist Pflicht.** Wer dieses Projekt oder Teile davon weitergibt, zum Beispiel als Fork, Modpack oder eigene Mod, muss die Datei [NOTICE](NOTICE) mitliefern. Darin wird **Hemiize** als ursprünglicher Autor mit Link auf dieses Repository genannt (Abschnitt 4 der Apache-Lizenz).
+> **Attribution is required.** Anyone who redistributes this project or parts of it – as a fork, in a modpack or in their own mod – must include the [NOTICE](NOTICE) file. It credits **Hemiize** as the original author with a link to this repository (section 4 of the Apache License).
 
-Die mitgelieferten Bibliotheken behalten ihre eigenen Lizenzen (MCP Java SDK, Jetty, Groovy, Byte Buddy, Jackson, Reactor). *Minecraft* ist eine Marke von Mojang/Microsoft. Dieses Projekt ist inoffiziell und steht in keiner Verbindung zu Mojang, Microsoft oder Anthropic.
+The bundled libraries keep their own licenses (MCP Java SDK, Jetty, Groovy, Byte Buddy, Jackson, Reactor). *Minecraft* is a trademark of Mojang/Microsoft. This project is unofficial and not affiliated with Mojang, Microsoft or Anthropic.

@@ -19,20 +19,20 @@ class MemoryAndEventsTest {
 	@Test
 	void memoryPersistsAndSearches() {
 		MemoryStore m = new MemoryStore(tmp);
-		m.put("sp-Welt 1", "note", null, "Eisenmine bei der Schlucht", List.of("mine"), null);
-		m.put("sp-Welt 1", "kv", "home", "Haus am See", null, null);
-		m.put("sp-Welt 1", "kv", "home", "Neues Haus im Wald", null, null); // replaces
-		m.put("sp-Welt 1", "waypoint", "base", null, null, Map.of("x", 1, "y", 64, "z", -3));
+		m.put("sp-World 1", "note", null, "Iron mine next to the ravine", List.of("mine"), null);
+		m.put("sp-World 1", "kv", "home", "House by the lake", null, null);
+		m.put("sp-World 1", "kv", "home", "New house in the forest", null, null); // replaces
+		m.put("sp-World 1", "waypoint", "base", null, null, Map.of("x", 1, "y", 64, "z", -3));
 
 		MemoryStore again = new MemoryStore(tmp);
-		assertEquals("Neues Haus im Wald", again.get("sp-Welt 1", "home").text);
-		assertEquals(1, again.search("sp-Welt 1", "eisen", null, null, 10).size());
-		assertEquals(1, again.search("sp-Welt 1", null, List.of("mine"), null, 10).size());
-		assertEquals(1, again.search("sp-Welt 1", null, null, "waypoint", 10).size());
-		assertEquals(3, again.search("sp-Welt 1", null, null, null, 10).size());
-		assertTrue(again.delete("sp-Welt 1", "base"));
-		assertNull(again.get("sp-Welt 1", "base"));
-		assertTrue(again.scopes().contains(MemoryStore.sanitize("sp-Welt 1")));
+		assertEquals("New house in the forest", again.get("sp-World 1", "home").text);
+		assertEquals(1, again.search("sp-World 1", "iron", null, null, 10).size());
+		assertEquals(1, again.search("sp-World 1", null, List.of("mine"), null, 10).size());
+		assertEquals(1, again.search("sp-World 1", null, null, "waypoint", 10).size());
+		assertEquals(3, again.search("sp-World 1", null, null, null, 10).size());
+		assertTrue(again.delete("sp-World 1", "base"));
+		assertNull(again.get("sp-World 1", "base"));
+		assertTrue(again.scopes().contains(MemoryStore.sanitize("sp-World 1")));
 		assertTrue(again.search("global", null, null, null, 10).isEmpty());
 	}
 
