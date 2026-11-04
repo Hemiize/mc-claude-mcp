@@ -72,3 +72,9 @@ fabricApi {
 		eula = true
 	}
 }
+
+// ship license and attribution notice inside the mod jar
+jar {
+	from("LICENSE") { into "META-INF" }
+	from("NOTICE") { into "META-INF" }
+}
