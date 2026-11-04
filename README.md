@@ -9,6 +9,7 @@
 [![Java 25](https://img.shields.io/badge/Java-25-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://adoptium.net/)
 [![MCP](https://img.shields.io/badge/MCP-Streamable_HTTP-6E56CF?style=for-the-badge)](https://modelcontextprotocol.io/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/Hemiize/mc-claude-mcp?style=for-the-badge&label=Download)](https://github.com/Hemiize/mc-claude-mcp/releases/latest)
 
 <img src="docs/screenshot-goto.png" alt="Claude läuft per goto durch die Welt, das HUD zeigt den laufenden Task" width="860">
 
@@ -53,7 +54,7 @@ Eine clientseitige **Fabric-Mod**, die in Minecraft einen **MCP-Server** startet
 
 Lege in einer **Fabric-Instanz für Minecraft 26.3** (z. B. mit [Prism Launcher](https://prismlauncher.org/)) diese Dateien in `mods/`:
 
-- `claude-mcp-<version>.jar` – selbst bauen mit `.\gradlew build`, die Jar liegt dann unter `build/libs/`
+- `claude-mcp-<version>.jar` – [**aktuelles Release herunterladen**](https://github.com/Hemiize/mc-claude-mcp/releases/latest) oder selbst bauen mit `.\gradlew build` (die Jar liegt dann unter `build/libs/`)
 - [Fabric API](https://modrinth.com/mod/fabric-api) **≥ 0.165.0**
 
 Starte Minecraft einmal. Dabei werden `config/claudemcp/token.txt` und `config.json` angelegt.
