@@ -58,8 +58,8 @@ public class McpClientGameTest implements FabricClientGameTest {
 			JsonObject go = tool("goto", "{\"x\":" + (x + 4) + ",\"y\":" + y + ",\"z\":" + z + ",\"wait\":30}");
 			check("done".equals(go.get("status").getAsString()), "goto: " + go);
 
-			tool("memory_put", "{\"kind\":\"kv\",\"key\":\"t\",\"text\":\"hallo\"}");
-			check("hallo".equals(tool("memory_get", "{\"id\":\"t\"}").get("text").getAsString()), "memory");
+			tool("memory_put", "{\"kind\":\"kv\",\"key\":\"t\",\"text\":\"hello\"}");
+			check("hello".equals(tool("memory_get", "{\"id\":\"t\"}").get("text").getAsString()), "memory");
 
 			JsonObject s = tool("script_eval", "{\"sync\":true,\"code\":\"player.blockPosition().x\"}");
 			check(s.get("value").getAsInt() >= x + 3, "script result " + s);
@@ -75,10 +75,10 @@ public class McpClientGameTest implements FabricClientGameTest {
 			tool("java_hook_remove", "{\"id\":\"all\"}");
 
 			// NBT: give an item with components and read it back
-			tool("nbt_give", "{\"snbt\":\"{id:\\\"minecraft:stick\\\",count:2,components:{\\\"minecraft:custom_name\\\":\\\"Zauberstab\\\"}}\",\"slot\":\"8\"}");
+			tool("nbt_give", "{\"snbt\":\"{id:\\\"minecraft:stick\\\",count:2,components:{\\\"minecraft:custom_name\\\":\\\"Magic Wand\\\"}}\",\"slot\":\"8\"}");
 			ctx.waitTicks(5);
 			JsonObject item = tool("nbt_get", "{\"target\":\"item\",\"slot\":\"8\"}");
-			check(item.get("snbt").getAsString().contains("Zauberstab"), "nbt item " + item);
+			check(item.get("snbt").getAsString().contains("Magic Wand"), "nbt item " + item);
 
 			// chat filter rule (outgoing rewrite) - just registration/listing here
 			tool("chat_rule_add", "{\"pattern\":\"x\",\"id\":\"gt\"}");
