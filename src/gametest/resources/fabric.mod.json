@@ -1,0 +1,11 @@
+{
+	"schemaVersion": 1,
+	"id": "claudemcp-gametest",
+	"version": "1.0.0",
+	"name": "Claude MCP game tests",
+	"environment": "*",
+	"entrypoints": {
+		"fabric-client-gametest": ["dev.leon.claudemcp.gametest.McpClientGameTest"]
+	},
+	"depends": { "claudemcp": "*" }
+}

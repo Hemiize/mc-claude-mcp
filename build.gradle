@@ -1,0 +1,74 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+base { archivesName = 'claude-mcp' }
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	// Libraries that are bundled into the mod jar (jar-in-jar), including their transitive deps.
+	bundle {
+		transitive = true
+	}
+	implementation.extendsFrom bundle
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+	bundle "io.modelcontextprotocol.sdk:mcp-core:${project.mcp_sdk_version}"
+	bundle "io.modelcontextprotocol.sdk:mcp-json-jackson3:${project.mcp_sdk_version}"
+	bundle "org.eclipse.jetty.ee11:jetty-ee11-servlet:${project.jetty_version}"
+	bundle "org.apache.groovy:groovy:${project.groovy_version}"
+	bundle "net.bytebuddy:byte-buddy:${project.bytebuddy_version}"
+	bundle "net.bytebuddy:byte-buddy-agent:${project.bytebuddy_version}"
+
+	testImplementation platform("org.junit:junit-bom:5.13.4")
+	testImplementation "org.junit.jupiter:junit-jupiter"
+	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
+
+// Jar-in-jar every resolved artifact of the bundle configuration.
+afterEvaluate {
+	configurations.bundle.resolvedConfiguration.resolvedArtifacts.each { a ->
+		def id = a.moduleVersion.id
+		if (id.group == 'org.slf4j') return
+		dependencies.add('include', "${id.group}:${id.name}:${id.version}")
+	}
+}
+
+processResources {
+	def version = project.version
+	inputs.property "version", version
+	filesMatching("fabric.mod.json") { expand "version": version }
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+	it.options.encoding = 'UTF-8'
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
+
+test {
+	useJUnitPlatform()
+}
+
+// Client game tests: ./gradlew runClientGameTest (starts a real client, creates a world, talks to the MCP server)
+fabricApi {
+	configureTests {
+		createSourceSet = true
+		modId = "claudemcp-gametest"
+		enableGameTests = false
+		enableClientGameTests = true
+		eula = true
+	}
+}
