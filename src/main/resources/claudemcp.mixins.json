@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "dev.leon.claudemcp.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"client": [
+		"KeyboardInputMixin",
+		"KeyboardHandlerMixin",
+		"MouseHandlerMixin"
+	],
+	"injectors": { "defaultRequire": 1 }
+}

@@ -1,0 +1,19 @@
+Claude MCP - Minecraft client controllable by Claude Code via MCP
+Copyright 2026 Hemiize (https://github.com/Hemiize)
+
+This product was created by Hemiize.
+Original project: https://github.com/Hemiize/mc-claude-mcp
+
+ATTRIBUTION REQUIRED: Under section 4(d) of the Apache License 2.0, any
+redistribution of this software or of derivative works (forks, modpacks,
+mods or programs that include this code) must include a readable copy of
+this NOTICE file, crediting Hemiize as the original author with a link to
+the original project.
+
+This product bundles third-party libraries, each under its own license:
+- Model Context Protocol Java SDK (MIT)
+- Eclipse Jetty (Apache-2.0 / EPL-2.0)
+- Apache Groovy (Apache-2.0)
+- Byte Buddy (Apache-2.0)
+- Jackson (Apache-2.0)
+- Project Reactor (Apache-2.0)
